@@ -203,7 +203,9 @@ int const TYPE_RECTANGLE = 1;
             [containerView addSubview:self];
         }
         completion:^(BOOL finished) {
-            [delegate iShowcaseShown:self];
+            if([delegate respondsToSelector:@selector(iShowcaseShown:)]){
+                [delegate iShowcaseShown:self];
+            }
         }];
 }
 
@@ -450,7 +452,10 @@ int const TYPE_RECTANGLE = 1;
 
 - (void)onAnimationComplete {
     [self recycleViews];
-    [delegate iShowcaseDismissed:self];
+    
+    if([delegate respondsToSelector:@selector(iShowcaseDismissed:)]){
+        [delegate iShowcaseDismissed:self];
+    }
 }
 
 - (void)recycleViews {
